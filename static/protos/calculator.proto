@@ -1,0 +1,50 @@
+// Specifies the syntax version of the protocol buffers used in this .proto file i.e. version 3
+syntax="proto3";
+
+// Service definition for the Calculator service
+service Calculator {
+  // RPC for adding two numbers
+  rpc Add(AddRequest) returns (CalculatedResponse){}
+  
+  // RPC for multiplying two numbers
+  rpc Multiply(MultiplyRequest) returns (CalculatedResponse){}
+  
+  // RPC for calculating factorial with streaming response
+  rpc Factorial(FactorialRequest) returns (stream FactorialResponse){}
+  
+  // RPC for adding multiple numbers with streaming request and response
+  rpc AddMultiple(stream AddRequest) returns (stream CalculatedResponse){}
+}
+
+// Message for the request of the Add RPC
+message AddRequest {
+    int32 num1 = 1;
+    int32 num2 = 2;
+}
+
+// Message for the request of the Multiply RPC
+message MultiplyRequest {
+    int32 num1 = 1;
+    int32 num2 = 2;
+}
+
+// Message for the request of the Factorial RPC
+message FactorialRequest {
+    int32 number = 1;
+}
+
+// Message for the response of the Factorial RPC
+message FactorialResponse {
+    int64 result = 1;
+    int32 stage = 2;
+}
+
+// Message for the response of the Add and Multiply RPCs
+message CalculatedResponse {
+    int32 result = 1;
+}
+
+// Message for the request of the AddMultiple RPC
+message AddStreamRequest {
+    int32 number = 1;
+}
